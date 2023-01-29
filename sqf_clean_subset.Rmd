@@ -1,0 +1,120 @@
+---
+title: "wrangle_sqf"
+author: "Stephen Koppel"
+date: "2023-01-27"
+output: html_document
+---
+
+
+```{r}
+
+library(tidyverse)
+library(lubridate)
+library(janitor)
+
+```
+
+Data were pulled from NYPD's SQF open portal: https://www.nyc.gov/site/nypd/stats/reports-analysis/stopfrisk.page
+
+Code for initial subset/clean below:
+
+-flag whether a stop resulted in a criminal summons or arrest ("hit")
+-parse frisk date 
+-select relevant variables with some name changes
+
+Note column names change in 2017
+
+```{r}
+
+sqf_2013 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2013.csv") %>% 
+  mutate(hit = if_else(arstmade == "Y"| sumissue == "Y", "Y", "N")) %>% 
+  mutate(datestop = mdy(datestop)) %>% 
+  select(date = datestop, sex, age, race, boro = city, crimsusp, frisked, searched, hit) %>%
+  write.csv(.,file = "sqfsub_2013.csv", row.names = FALSE)
+
+```
+
+```{r}
+
+sqf_2014 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2014.csv") %>% 
+  mutate(hit = if_else(arstmade == "Y"| sumissue == "Y", "Y", "N")) %>% 
+  mutate(datestop = mdy(datestop)) %>% 
+  select(date = datestop, sex, age, race, boro = city, crimsusp, frisked, searched, hit) %>%
+  write.csv(.,file = "sqfsub_2014.csv", row.names = FALSE)
+
+
+```
+
+```{r}
+
+sqf_2015 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2015.csv") %>% 
+  mutate(hit = if_else(arstmade == "Y"| sumissue == "Y", "Y", "N")) %>% 
+  mutate(datestop = mdy(datestop)) %>% 
+  select(date = datestop, sex, age, race, boro = city, crimsusp, frisked, searched, hit) %>%
+  write.csv(.,file = "sqfsub_2015.csv", row.names = FALSE)
+
+
+```
+
+```{r}
+
+sqf_2016 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2016.csv") %>% 
+  mutate(hit = if_else(arstmade == "Y"| sumissue == "Y", "Y", "N")) %>% 
+  mutate(datestop = mdy(datestop)) %>% 
+  select(date = datestop, sex, age, race, boro = city, crimsusp, frisked, searched, hit) %>%
+  write.csv(.,file = "sqfsub_2016.csv", row.names = FALSE)
+
+```
+
+
+```{r}
+
+sqf_2017 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2017.csv") %>% 
+  clean_names() %>% 
+  mutate(hit = if_else(suspect_arrested_flag == "Y"| summons_issued_flag == "Y", "Y", "N")) %>% 
+  select(date = stop_frisk_date, sex = suspect_sex, age = suspect_reported_age, race = suspect_race_description, boro = stop_location_boro_name, crimsusp = suspected_crime_description, frisked = frisked_flag, searched = searched_flag, hit) %>%
+  write.csv(.,file = "sqfsub_2017.csv", row.names = FALSE)
+
+```
+
+```{r}
+
+sqf_2018 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2018.csv") %>% 
+  clean_names() %>% 
+  mutate(hit = if_else(suspect_arrested_flag == "Y"| summons_issued_flag == "Y", "Y", "N")) %>% 
+  select(date = stop_frisk_date, sex = suspect_sex, age = suspect_reported_age, race = suspect_race_description, boro = stop_location_boro_name, crimsusp = suspected_crime_description, frisked = frisked_flag, searched = searched_flag, hit) %>%
+  write.csv(.,file = "sqfsub_2018.csv", row.names = FALSE)
+
+```
+
+```{r}
+
+sqf_2019 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2019.csv") %>% 
+  clean_names() %>% 
+  mutate(hit = if_else(suspect_arrested_flag == "Y"| summons_issued_flag == "Y", "Y", "N")) %>% 
+  select(date = stop_frisk_date, sex = suspect_sex, age = suspect_reported_age, race = suspect_race_description, boro = stop_location_boro_name, crimsusp = suspected_crime_description, frisked = frisked_flag, searched = searched_flag, hit) %>%
+  write.csv(.,file = "sqfsub_2019.csv", row.names = FALSE)
+
+```
+
+```{r}
+
+sqf_2020 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2020.csv") %>% 
+  clean_names() %>% 
+  mutate(hit = if_else(suspect_arrested_flag == "Y"| summons_issued_flag == "Y", "Y", "N")) %>% 
+  select(date = stop_frisk_date, sex = suspect_sex, age = suspect_reported_age, race = suspect_race_description, boro = stop_location_boro_name, crimsusp = suspected_crime_description, frisked = frisked_flag, searched = searched_flag, hit) %>%
+  write.csv(.,file = "sqfsub_2020.csv", row.names = FALSE)
+
+```
+
+```{r}
+
+sqf_2021 <- read_csv("C:/R Projects/Police Reform/SQF/sqf_2021.csv") %>% 
+  clean_names() %>% 
+  mutate(hit = if_else(suspect_arrested_flag == "Y"| summons_issued_flag == "Y", "Y", "N")) %>% 
+  select(date = stop_frisk_date, sex = suspect_sex, age = suspect_reported_age, race = suspect_race_description, boro = stop_location_boro_name, crimsusp = suspected_crime_description, frisked = frisked_flag, searched = searched_flag, hit) %>%
+  write.csv(.,file = "sqfsub_2021.csv", row.names = FALSE)
+
+```
+
+
